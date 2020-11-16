@@ -1,0 +1,54 @@
+﻿@model List<CRUD_Clientes_CRMALL.ViewModel.ClienteViewModel>
+
+@{
+    ViewBag.Title = "Clientes Cadastrados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h5>Clientes Cadastrados</h5>
+<br>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data de Nasc.</th>
+            <th>Sexo</th>
+            <th>Endereço</th>
+            <th>Complemento</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.DataNascimento.ToString("dd/MM/yyyy")</td>
+                <td>@item.Sexo</td>
+
+                @if (item.Endereco != null) { 
+                    <td>@item.Endereco.EnderecoConcatenado</td> 
+                    <td>@item.Endereco.Complemento</td> 
+                }
+                else
+                { 
+                    <td></td> 
+                    <td></td>
+                }
+
+                <td>
+                    @Html.ActionLink("Alterar", "Alterar", "Cliente",
+                             new { id = item.Id },
+                             new { @class = "link-button" })
+                    |
+                    @Html.ActionLink("Excluir", "Excluir", "Cliente",
+                             new { id = item.Id },
+                             new { @class = "link-button" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
